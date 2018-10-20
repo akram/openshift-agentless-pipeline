@@ -5,7 +5,7 @@ The build runs in jenkins (agent none) and creates if required the sub-build usi
 Then the build is monitored and when finished, it tags and deploy the app.
 
 ```
-# oc create secret generic my-secret --from-literal=username=user \
+# oc create secret generic git-repo-secret --from-literal=username=user \
 #                                    --from-literal=password=password
 
 oc create secret generic git-repo-secret --from-file=ssh-privatekey=~/.ssh/id_rsa
