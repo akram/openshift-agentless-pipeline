@@ -2,7 +2,7 @@ def applicationName = 'php-simple-app'
 def baseImage  = "php";
 def buildImage = "${baseImage}:latest";
 def secretName = "git-repo-secret";
- 
+
 pipeline {
     agent none
     options {
@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
- 
+
         stage('sub-builds creation') {
             steps {
                 script {
@@ -48,7 +48,7 @@ pipeline {
                 }
             }
         }
- 
+
         stage('build') {
             steps {
                 script {
@@ -112,7 +112,7 @@ pipeline {
                             def tag = now.format("yyyMMdd-HHmmss", TimeZone.getTimeZone('UTC'));
                             openshift.tag("${applicationName}:latest", "${applicationName}-staging:latest")
                             openshift.tag("${applicationName}:latest", "${applicationName}:${baseImage}-${tag}")
- 
+
                         }
                     }
                 }
@@ -134,7 +134,7 @@ pipeline {
                           }
                           def objects = dc + svc + cm + is + routes;
                           def template = [[ "kind":"Template", "apiVersion":"v1", "objects": objects,
-                                             "metadata":[ "name":"${applicationName}", "annotations": [ "iconClass": "icon-php"], 
+                                             "metadata":[ "name":"${applicationName}", "annotations": [ "iconClass": "icon-php"],
                                                            "labels":[ "template":"${applicationName}" ]]]]
                           openshift.create(template);
                         }
@@ -155,8 +155,6 @@ pipeline {
                     }
                 }
             }
-        }          
-      }
+        }
     }
 }
- 
