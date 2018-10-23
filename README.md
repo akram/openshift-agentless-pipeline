@@ -4,6 +4,15 @@ An agentless pipeline build relying on an S2I image.
 The build runs in jenkins (agent none) and creates if required the sub-build using s2i.
 Then the build is monitored and when finished, it tags and deploy the app.
 
+
+
+To allo the Jenkins pipeline to create the projects for staging, uat and prod, we need to:
+```
+oc adm policy add-cluster-role-to-user self-provisioner  system:serviceaccount:php-pipeline:jenkins
+```
+
+
+
 ```
 # oc create secret generic git-repo-secret --from-literal=username=user \
 #                                    --from-literal=password=password
@@ -20,3 +29,5 @@ oc set volume --add dc/jenkins -t configmap --mount-path=/var/lib/jenkins/script
               --name=script-approval
 
 ```
+
+
