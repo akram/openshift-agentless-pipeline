@@ -1,4 +1,4 @@
-def applicationName = 'openshift-agentless-pipeline'
+def applicationName = 'php-simple-app'
 def baseImage  = "php";
 def buildImage = "${baseImage}:latest";
 def secretName = "git-repo-secret";
