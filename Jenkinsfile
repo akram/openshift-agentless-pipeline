@@ -146,9 +146,9 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                      // openshift.newProject("${applicationName}-staging")
-                      // openshift.newProject("${applicationName}-uat")
-                      // openshift.newProject("${applicationName}-prod")
+                       openshift.newProject("${applicationName}-staging")
+                       openshift.newProject("${applicationName}-uat")
+                       openshift.newProject("${applicationName}-prod")
                     }
                 }
             }
