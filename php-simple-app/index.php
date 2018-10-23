@@ -1,5 +1,6 @@
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>PHP Simple App</title>
   </head>
   <body>
