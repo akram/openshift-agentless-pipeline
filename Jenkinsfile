@@ -124,12 +124,18 @@ pipeline {
                     openshift.withCluster() {
                         openshift.withProject() {
                           def template = [[ "kind":"Template", "apiVersion":"v1", "metadata":[ "name":"${applicationName}", "labels":[ "template":"${applicationName}" ]]]]
-                          def maps = openshift.selector("dc")
-                          def objects = maps.objects( exportable:true )
-                          openshift.create(template);
+                          def dc = openshift.selector("dc").objects(exportable:true)
+                          def svc = openshift.selector("svc").objects(exportable:true)
+                          def cm = openshift.selector("cm").objects(exportable:true)
+                          def is = openshift.selector("is").objects(exportable:true)
+                          def routes = openshift.selector("routes")
                           def templateObject = openshift.selector( "template", applicationName)
-                          template.put("objects", objects);
-                          openshift.create(template);
+                          if( templateObject.exists() ){
+                            templateObject.delete()
+                          }
+                          def objects = dc + svc + cm + is + routes;
+                          templateObject.put("objects", objects);
+                          openshift.create(templateObject);
                         }
                     }
                 }
