@@ -54,7 +54,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            def build = openshift.selector("bc", applicationName);
+                           /* def build = openshift.selector("bc", applicationName);
                             build.startBuild();
                             def builds = build.related('builds')
                             timeout(5) {
@@ -62,7 +62,7 @@ pipeline {
                                     return (it.object().status.phase == "Complete")
                                 }
                             }
-                        }
+                        */}
                     }
                 }
             }
