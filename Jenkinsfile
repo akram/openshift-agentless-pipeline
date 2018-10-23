@@ -155,11 +155,10 @@ pipeline {
         }          
     }
  
-  agent {
-      label 'maven'
-  }
-  stage('template generation') {
-            steps { sh "sh oc whoami " } 
+  node('maven') {
+    stage 'build'
+               steps { sh "sh oc whoami " }
+    }
   }
 
 }
