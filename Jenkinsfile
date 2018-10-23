@@ -123,9 +123,14 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                          def maps = openshift.selector("dc", "svc", "is", "cm")
+                          def template = [[ "kind":"Template", "apiVersion":"v1", "metadata":[ "name":"${applicationName}", "labels":[ "template":"${applicationName}" ]]]]
+                          def maps = openshift.selector("dc")
                           def objects = maps.objects( exportable:true )
-                          echo "Export des objets: ${objects}"
+                          echo "Exported objects: ${objects}"
+                          openshift.create(template);
+                          def templateObject = openshift.selector( "template", applicationName)
+                          echo "Created template: ${objects}"
+
                         }
                     }
                 }
