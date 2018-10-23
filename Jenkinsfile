@@ -143,6 +143,9 @@ pipeline {
             }
         }
         stage('create environments') {
+            agent {
+                label "maven"
+            }
             steps {
                 script {
                     openshift.withCluster() {
