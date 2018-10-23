@@ -153,13 +153,6 @@ pipeline {
                 }
             }
         }          
-    }
- 
-  node('maven') {
-    stage 'build'
-               steps { sh "sh oc whoami " }
-    }
-  }
 
 }
  
