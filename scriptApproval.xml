@@ -2,6 +2,8 @@
 <scriptApproval plugin="script-security@1.41">
   <approvedScriptHashes/>
   <approvedSignatures>
+    <string>method groovy.lang.GroovyObject setProperty java.lang.String java.lang.Object</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods putAt java.lang.Object java.lang.String java.lang.Object</string>
     <string>method hudson.plugins.git.UserRemoteConfig getUrl</string>
     <string>method hudson.plugins.git.GitSCM getBranches</string>
     <string>method hudson.plugins.git.GitSCM getUserRemoteConfigs</string>
