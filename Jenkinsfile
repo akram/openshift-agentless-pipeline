@@ -128,22 +128,30 @@ pipeline {
                           def cm = openshift.selector("cm").objects(exportable:true)
                           def is = openshift.selector("is").objects(exportable:true)
                           def routes = openshift.selector("routes").objects(exportable:true)
-                          //def templateObject = openshift.selector( "template", applicationName)
-                          //if( templateObject.exists() ){
-                          //  templateObject.delete()
-                          //}
+                          def templateObject = openshift.selector( "template", applicationName)
+                          if( templateObject.exists() ){
+                            templateObject.delete()
+                          }
                           def objects = dc + svc + cm + is + routes;
-                          echo "Objects &&&&&&&&&&&&&&&&&&&&&&&&\n ${objects}";
                           def template = [[ "kind":"Template", "apiVersion":"v1", "objects": [ objects ],
                                              "metadata":[ "name":"${applicationName}", "labels":[ "template":"${applicationName}" ]]]]
-
-                          echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${template}"
                           openshift.create(template);
                         }
                     }
                 }
             }
         }
+        stage('create environments') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                      openshift.newProject("${applicationName}-staging")
+                      openshift.newProject("${applicationName}-uat")
+                      openshift.newProject("${applicationName}-prod")
+                    }
+                }
+            }
+        }          
     }
 }
  
