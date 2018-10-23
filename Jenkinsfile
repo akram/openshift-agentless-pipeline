@@ -134,7 +134,7 @@ pipeline {
                           //}
                           def objects = dc + svc + cm + is + routes;
                           echo "Objects &&&&&&&&&&&&&&&&&&&&&&&&\n ${objects}";
-                          def template = [[ "kind":"Template", "apiVersion":"v1", "objects": [ ${objects} ],
+                          def template = [[ "kind":"Template", "apiVersion":"v1", "objects": [ objects ],
                                              "metadata":[ "name":"${applicationName}", "labels":[ "template":"${applicationName}" ]]]]
 
                           echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${template}"
