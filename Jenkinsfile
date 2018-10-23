@@ -118,24 +118,27 @@ pipeline {
                 }
             }
         }
-        stage('generate and commit template') {
+        stage('template generation') {
             steps {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                          def template = [[ "kind":"Template", "apiVersion":"v1", "metadata":[ "name":"${applicationName}", "labels":[ "template":"${applicationName}" ]]]]
                           def dc = openshift.selector("dc").objects(exportable:true)
                           def svc = openshift.selector("svc").objects(exportable:true)
                           def cm = openshift.selector("cm").objects(exportable:true)
                           def is = openshift.selector("is").objects(exportable:true)
-                          def routes = openshift.selector("routes")
-                          def templateObject = openshift.selector( "template", applicationName)
-                          if( templateObject.exists() ){
-                            templateObject.delete()
-                          }
+                          def routes = openshift.selector("routes").objects(exportable:true)
+                          //def templateObject = openshift.selector( "template", applicationName)
+                          //if( templateObject.exists() ){
+                          //  templateObject.delete()
+                          //}
                           def objects = dc + svc + cm + is + routes;
-                          templateObject.objects = objects;
-                          openshift.apply(templateObject);
+                          echo "Objects &&&&&&&&&&&&&&&&&&&&&&&&\n ${objects}";
+                          def template = [[ "kind":"Template", "apiVersion":"v1", "objects": ${objects},
+                                             "metadata":[ "name":"${applicationName}", "labels":[ "template":"${applicationName}" ]]]]
+
+                          echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA \n${template}"
+                          openshift.create(template);
                         }
                     }
                 }
