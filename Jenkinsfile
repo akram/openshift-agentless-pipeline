@@ -12,7 +12,7 @@ pipeline {
         stage('preamble') {
             steps {
                 script {
-                  ' sh oc whoami
+                  sh "sh oc whoami"
                     openshift.withCluster() {
                         openshift.withProject() {
                             echo "Using project: ${openshift.project()}"
