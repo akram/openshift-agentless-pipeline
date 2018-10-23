@@ -12,7 +12,6 @@ pipeline {
         stage('preamble') {
             steps {
                 script {
-                  sh "sh oc whoami"
                     openshift.withCluster() {
                         openshift.withProject() {
                             echo "Using project: ${openshift.project()}"
@@ -155,5 +154,13 @@ pipeline {
             }
         }          
     }
+ 
+  agent {
+      label 'maven'
+  }
+  stage('template generation') {
+            steps { sh "sh oc whoami " } 
+  }
+
 }
  
