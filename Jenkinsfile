@@ -123,8 +123,9 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            openshift.tag("${applicationName}:latest", "${applicationName}:${baseImage}-${tag}")
- 
+                          def maps = openshift.selector('dc')
+                          def objects = maps.objects( exportable:true )
+                          echo "Export des objets: ${objects}"
                         }
                     }
                 }
