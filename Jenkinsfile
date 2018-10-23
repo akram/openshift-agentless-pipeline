@@ -123,7 +123,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                          def maps = openshift.selector('dc')
+                          def maps = openshift.selector()
                           def objects = maps.objects( exportable:true )
                           echo "Export des objets: ${objects}"
                         }
