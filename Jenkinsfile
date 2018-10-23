@@ -133,7 +133,7 @@ pipeline {
                             templateObject.delete()
                           }
                           def objects = dc + svc + cm + is + routes;
-                          def template = [[ "kind":"Template", "apiVersion":"v1", "objects": [ objects ],
+                          def template = [[ "kind":"Template", "apiVersion":"v1", "objects": [ dc ],
                                              "metadata":[ "name":"${applicationName}", "iconClass": "icon-php", 
                                                            "labels":[ "template":"${applicationName}" ]]]]
                           openshift.create(template);
@@ -146,9 +146,9 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                      openshift.newProject("${applicationName}-staging")
-                      openshift.newProject("${applicationName}-uat")
-                      openshift.newProject("${applicationName}-prod")
+                      // openshift.newProject("${applicationName}-staging")
+                      // openshift.newProject("${applicationName}-uat")
+                      // openshift.newProject("${applicationName}-prod")
                     }
                 }
             }
