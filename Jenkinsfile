@@ -134,8 +134,8 @@ pipeline {
                             templateObject.delete()
                           }
                           def objects = dc + svc + cm + is + routes;
-                          templateObject.putAt("objects", objects);
-                          openshift.create(templateObject);
+                          templateObject.objects = objects;
+                          openshift.apply(templateObject);
                         }
                     }
                 }
