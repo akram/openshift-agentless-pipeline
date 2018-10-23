@@ -1,0 +1,15 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<scriptApproval plugin="script-security@1.41">
+  <approvedScriptHashes/>
+  <approvedSignatures>
+    <string>method hudson.plugins.git.UserRemoteConfig getUrl</string>
+    <string>method hudson.plugins.git.GitSCM getBranches</string>
+    <string>method hudson.plugins.git.GitSCM getUserRemoteConfigs</string>
+    <string>method hudson.plugins.git.GitSCMBackwardCompatibility getExtensions</string>
+  </approvedSignatures>
+  <aclApprovedSignatures/>
+  <approvedClasspathEntries/>
+  <pendingScripts/>
+  <pendingClasspathEntries/>
+</scriptApproval>
+

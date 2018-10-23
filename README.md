@@ -13,4 +13,9 @@ GIT_REPO=https://github.com/akram/penshift-agentless-pipeline.git
 oc new-build --name=my-pipeline --strategy=pipeline \
              --source=$GIT_REPO
 oc env bc my-pipeline GIT_SSL_NO_VERIFY=true
+
+oc create configmap jenkins-approval-scripts --from-file=scriptApproval.xml
+oc set volume --add dc/jenkins -t configmap --mount-path=/var/lib/jenkins --sub-path=scriptApproval.xml \
+              --configmap-name=jenkins-approval-scripts --name=script-approval
+
 ```
