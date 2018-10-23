@@ -134,7 +134,8 @@ pipeline {
                           }
                           def objects = dc + svc + cm + is + routes;
                           def template = [[ "kind":"Template", "apiVersion":"v1", "objects": [ objects ],
-                                             "metadata":[ "name":"${applicationName}", "labels":[ "template":"${applicationName}" ]]]]
+                                             "metadata":[ "name":"${applicationName}", "iconClass": "icon-php", 
+                                                           "labels":[ "template":"${applicationName}" ]]]]
                           openshift.create(template);
                         }
                     }
