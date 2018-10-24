@@ -7,7 +7,7 @@ def createProject(openshift, project) {
   try {
     openshift.newProject("${applicationName}-dev")
       } catch (Exception e) {
-         if( !e.msg.contains("AlreadyExists")) throw e;
+         if( !e.getMessage().contains("AlreadyExists")) throw e;
       }
 }
 
