@@ -5,7 +5,7 @@ def secretName = "git-repo-secret";
 
 def createProject(openshift, project) {
   try {
-    openshift.newProject("${applicationName}-dev")
+    openshift.newProject(project)
       } catch (Exception e) {
          if( !e.getMessage().contains("AlreadyExists")) throw e;
       }
