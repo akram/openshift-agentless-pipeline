@@ -148,12 +148,15 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
+                        def dc, svc, cm, is, routes;
+                        openshift.withProject() {
+                          dc = openshift.selector("dc").objects(exportable:true)
+                          svc = openshift.selector("svc").objects(exportable:true)
+                          cm = openshift.selector("cm").objects(exportable:true)
+                          is = openshift.selector("is").objects(exportable:true)
+                          routes = openshift.selector("routes").objects(exportable:true)
+                        }
                         openshift.withProject("${applicationName}-dev") {
-                          def dc = openshift.selector("dc").objects(exportable:true)
-                          def svc = openshift.selector("svc").objects(exportable:true)
-                          def cm = openshift.selector("cm").objects(exportable:true)
-                          def is = openshift.selector("is").objects(exportable:true)
-                          def routes = openshift.selector("routes").objects(exportable:true)
                           def templateObject = openshift.selector( "template", applicationName)
                           if( templateObject.exists() ){
                             templateObject.delete()
