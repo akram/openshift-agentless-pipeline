@@ -93,7 +93,26 @@ pipeline {
                 }
             }
         }
-        stage('create') {
+        stage('tag') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            def now = new Date();
+                            def tag = now.format("yyyMMdd-HHmmss", TimeZone.getTimeZone('UTC'));
+                            openshift.tag("${applicationName}:latest", "{applicationName}-dev/${applicationName}:latest")
+                            openshift.tag("${applicationName}:latest", "{applicationName}-staging/${applicationName}:latest")
+                            openshift.tag("${applicationName}:latest", "{applicationName}-uat/${applicationName}:latest")
+                            openshift.tag("${applicationName}:latest", "{applicationName}-prod/${applicationName}:latest")
+                            openshift.tag("${applicationName}:latest", "${applicationName}-staging:latest")
+                            openshift.tag("${applicationName}:latest", "${applicationName}:${baseImage}-${tag}")
+
+                        }
+                    }
+                }
+            }
+        }
+        stage('create application') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -129,21 +148,7 @@ pipeline {
                 }
             }
         }
-        stage('tag') {
-            steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject() {
-                            def now = new Date();
-                            def tag = now.format("yyyMMdd-HHmmss", TimeZone.getTimeZone('UTC'));
-                            openshift.tag("${applicationName}:latest", "${applicationName}-staging:latest")
-                            openshift.tag("${applicationName}:latest", "${applicationName}:${baseImage}-${tag}")
 
-                        }
-                    }
-                }
-            }
-        }
         stage('template generation') {
             steps {
                 script {
