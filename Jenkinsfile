@@ -100,12 +100,12 @@ pipeline {
                         openshift.withProject() {
                             def now = new Date();
                             def tag = now.format("yyyMMdd-HHmmss", TimeZone.getTimeZone('UTC'));
-                            openshift.tag("${applicationName}:latest", "${applicationName}-dev/${applicationName}:latest")
-                            openshift.tag("${applicationName}:latest", "${applicationName}-staging/${applicationName}:latest")
-                            openshift.tag("${applicationName}:latest", "${applicationName}-uat/${applicationName}:latest")
-                            openshift.tag("${applicationName}:latest", "${applicationName}-prod/${applicationName}:latest")
-                            openshift.tag("${applicationName}:latest", "${applicationName}-staging:latest")
-                            openshift.tag("${applicationName}:latest", "${applicationName}:${baseImage}-${tag}")
+                            openshift.tag("${applicationName}:latest", "${applicationName}-dev/${applicationName}:latest-dev")
+                            openshift.tag("${applicationName}:latest", "${applicationName}-staging/${applicationName}:latest-staging")
+                            openshift.tag("${applicationName}:latest", "${applicationName}-uat/${applicationName}:latest-uat")
+                            openshift.tag("${applicationName}:latest", "${applicationName}-prod/${applicationName}:latest-prod")
+                            //openshift.tag("${applicationName}:latest", "${applicationName}-staging:latest")
+                            //openshift.tag("${applicationName}:latest", "${applicationName}:${baseImage}-${tag}")
 
                         }
                     }
