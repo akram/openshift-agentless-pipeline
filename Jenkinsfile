@@ -38,10 +38,10 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                      createProject(openshift, "${applicationName}-dev"))
-                      createProject(openshift, "${applicationName}-staging"))
-                      createProject(openshift, "${applicationName}-uat"))
-                      createProject(openshift, "${applicationName}-prod"))
+                      createProject(openshift, "${applicationName}-dev")
+                      createProject(openshift, "${applicationName}-staging")
+                      createProject(openshift, "${applicationName}-uat")
+                      createProject(openshift, "${applicationName}-prod")
                     }
                 }
             }
