@@ -1,4 +1,4 @@
-def applicationName = 'php-simple-app'
+def applicationName = 'my-php-app'
 def baseImage  = "php";
 def buildImage = "${baseImage}:latest";
 def secretName = "git-repo-secret";
