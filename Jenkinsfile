@@ -3,6 +3,16 @@ def baseImage  = "php";
 def buildImage = "${baseImage}:latest";
 def secretName = "git-repo-secret";
 
+def createProject(openshift, project) {
+  try {
+    openshift.newProject("${applicationName}-dev")
+      } catch (Exception e) {
+         if( !e.msg.contains("AlreadyExists")) throw e;
+      }
+}
+
+
+
 pipeline {
     agent none
     options {
@@ -16,6 +26,22 @@ pipeline {
                         openshift.withProject() {
                             echo "Using project: ${openshift.project()}"
                         }
+                    }
+                }
+            }
+        }
+
+        stage('create environments') {
+            /*agent {
+                label "maven"
+            }*/
+            steps {
+                script {
+                    openshift.withCluster() {
+                      createProject(openshift, "${applicationName}-dev"))
+                      createProject(openshift, "${applicationName}-staging"))
+                      createProject(openshift, "${applicationName}-uat"))
+                      createProject(openshift, "${applicationName}-prod"))
                     }
                 }
             }
@@ -138,20 +164,6 @@ pipeline {
                                                            "labels":[ "template":"${applicationName}" ]]]]
                           openshift.create(template);
                         }
-                    }
-                }
-            }
-        }
-        stage('create environments') {
-            /*agent {
-                label "maven"
-            }*/
-            steps {
-                script {
-                    openshift.withCluster() {
-                       openshift.newProject("${applicationName}-staging")
-                       openshift.newProject("${applicationName}-uat")
-                       openshift.newProject("${applicationName}-prod")
                     }
                 }
             }
