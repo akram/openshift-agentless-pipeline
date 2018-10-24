@@ -97,7 +97,7 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                        openshift.withProject() {
+                        openshift.withProject("${applicationName}-dev") {
                         def dc = openshift.selector("dc", applicationName);
                             if (!dc.exists()) {
                                 openshift.newApp(applicationName).narrow('svc').expose();
@@ -148,7 +148,7 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                        openshift.withProject() {
+                        openshift.withProject("${applicationName}-dev") {
                           def dc = openshift.selector("dc").objects(exportable:true)
                           def svc = openshift.selector("svc").objects(exportable:true)
                           def cm = openshift.selector("cm").objects(exportable:true)
