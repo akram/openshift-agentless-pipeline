@@ -19,7 +19,7 @@ pipeline {
         timeout(time: 20, unit: 'MINUTES')
     }
     stages {
-        stage('preamble') {
+        stage('initialisation') {
             steps {
                 script {
                     openshift.withCluster() {
@@ -136,7 +136,7 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                        openshift.withProject() {
+                        openshift.withProject("${applicationName}-dev") {
                             def rm = openshift.selector("dc", applicationName).rollout()
                             timeout(5) {
                                 openshift.selector("dc", applicationName).related('pods').untilEach(1) {
@@ -152,7 +152,7 @@ pipeline {
         stage('template generation') {
             steps {
                 script {
-                    openshift.withCluster() {
+                    openshift.withCluster("${applicationName}-dev") {
                         def dc, svc, cm, is, routes;
                         openshift.withProject() {
                           dc = openshift.selector("dc").objects(exportable:true)
@@ -160,8 +160,6 @@ pipeline {
                           cm = openshift.selector("cm").objects(exportable:true)
                           is = openshift.selector("is").objects(exportable:true)
                           routes = openshift.selector("routes").objects(exportable:true)
-                        }
-                        openshift.withProject("${applicationName}-dev") {
                           def templateObject = openshift.selector( "template", applicationName)
                           if( templateObject.exists() ){
                             templateObject.delete()
