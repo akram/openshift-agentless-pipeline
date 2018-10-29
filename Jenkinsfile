@@ -85,7 +85,9 @@ pipeline {
                             def builds = build.related('builds')
                             timeout(5) {
                                 builds.untilEach(1) {
-                                    return (it.object().status.phase == "Complete")
+                                    def status = it.object().status.phase;
+                                    echo "Build in status: ${status}"
+                                    return (status == "Complete" || status == "Cancelled")
                                 }
                             }
                         }
