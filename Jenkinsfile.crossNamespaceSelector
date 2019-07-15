@@ -1,4 +1,3 @@
-
 pipeline {
     agent none
     options {
@@ -9,9 +8,14 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                        openshift.withProject() {
-                            echo "Using project: ${openshift.project()}"
-                        }
+                      // Selectors also allow you to easily iterate through all objects they currently select.
+                      // def selector = openshift.selector( 'deploymentconfig' )
+                      def selector = openshift.selector("dc", "", [ "namespace1",  "namespace3"])
+                      selector.withEach { // The closure body will be executed once for each selected object.
+                        // The 'it' variable will be bound to a Selector which selects a single
+                        // object which is the focus of the iteration.
+                        echo "Deployment: ${it.name()} is defined in ${openshift.project()}"
+                      }
                     }
                 }
             }
