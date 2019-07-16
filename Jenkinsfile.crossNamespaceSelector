@@ -21,7 +21,7 @@ pipeline {
                           }
 
                       }
-                      openshift.withProject("akram-jenkins-sync-plugin-test") {
+                      openshift.withProject("vibhav-test") {
                           selector2 = openshift.selector("dc")
                           selector2.withEach { // The closure body will be executed once for each selected object.
                             // The 'it' variable will be bound to a Selector which selects a single
