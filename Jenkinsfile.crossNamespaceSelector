@@ -8,23 +8,25 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                      // Selectors also allow you to easily iterate through all objects they currently select.
-                      // def selector = openshift.selector( 'deploymentconfig' )
-                      def selector = openshift.selector("dc", "jenkins", [ "vibhav-jenkins",  "akram-jenkins-sync-plugin-test"])
-                      selector.withEach { // The closure body will be executed once for each selected object.
-                        // The 'it' variable will be bound to a Selector which selects a single
-                        // object which is the focus of the iteration.
-                        echo "1 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
-                      }
-                      
-                      
-                      def selector2 = openshift.selector("dc")
-                      selector2.withEach { // The closure body will be executed once for each selected object.
-                        // The 'it' variable will be bound to a Selector which selects a single
-                        // object which is the focus of the iteration.
-                        echo "2 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
-                      }
-                    }
+                      openshift.withProject() {
+                          // Selectors also allow you to easily iterate through all objects they currently select.
+                          // def selector = openshift.selector( 'deploymentconfig' )
+                          def selector = openshift.selector("dc", "jenkins", [ "vibhav-jenkins",  "akram-jenkins-sync-plugin-test"])
+                          selector.withEach { // The closure body will be executed once for each selected object.
+                            // The 'it' variable will be bound to a Selector which selects a single
+                            // object which is the focus of the iteration.
+                            echo "1 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
+                          }
+
+
+                          def selector2 = openshift.selector("dc")
+                          selector2.withEach { // The closure body will be executed once for each selected object.
+                            // The 'it' variable will be bound to a Selector which selects a single
+                            // object which is the focus of the iteration.
+                            echo "2 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
+                          }
+                        }
+                     }
                 }
             }
         }
