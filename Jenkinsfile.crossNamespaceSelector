@@ -29,7 +29,7 @@ pipeline {
                             echo "2 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
                           }
                         }
-                     }
+                     
                      openshift.withProject("akram-jenkins-sync-plugin-test") {
 
                      def selector3 = selector.union(selector2)
@@ -38,7 +38,8 @@ pipeline {
                             // object which is the focus of the iteration.
                             echo "3 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
                      }
-                     }
+                   }
+                 }
                 }
             }
         }
