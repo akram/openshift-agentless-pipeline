@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                      openshift.withProject("vibhav-test") {
+                      openshift.withProject("akram-jenkins-sync-plugin-test") {
                           // Selectors also allow you to easily iterate through all objects they currently select.
                           // def selector = openshift.selector( 'deploymentconfig' )
                           def selector = openshift.selector("dc", "jenkins", [ "vibhav-jenkins",  "akram-jenkins-sync-plugin-test"])
