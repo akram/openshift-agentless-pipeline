@@ -21,7 +21,7 @@ pipeline {
                           }
 
                       }
-                      openshift.withProject("vibhav-test") {
+                      openshift.withProject("vibhav-jenkins") {
                           selector2 = openshift.selector("dc")
                           selector2.withEach { // The closure body will be executed once for each selected object.
                             // The 'it' variable will be bound to a Selector which selects a single
