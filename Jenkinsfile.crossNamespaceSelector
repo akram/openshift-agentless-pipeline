@@ -18,7 +18,8 @@ pipeline {
                             echo "1 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
                           }
 
-
+                      }
+                      openshift.withProject("default") {
                           def selector2 = openshift.selector("dc")
                           selector2.withEach { // The closure body will be executed once for each selected object.
                             // The 'it' variable will be bound to a Selector which selects a single
@@ -26,6 +27,12 @@ pipeline {
                             echo "2 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
                           }
                         }
+                     }
+                     def selector3 = selector.union(selector2)
+                     selector3.withEach { // The closure body will be executed once for each selected object.
+                            // The 'it' variable will be bound to a Selector which selects a single
+                            // object which is the focus of the iteration.
+                            echo "3 ----- Deployment: ${it.name()} is defined in ${openshift.project()}"
                      }
                 }
             }
