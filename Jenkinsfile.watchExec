@@ -9,7 +9,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                       openshift.withProject("akram-jenkins-sync-plugin-test") {
-                         openshift.exec( args: [ "grafana-1-6dc89" ] , "ls", watch: true)
+                         openshift.exec( args: ["grafana-1-6dc89" , "ls"] , watch: true)
                      }
                     }
                 }
