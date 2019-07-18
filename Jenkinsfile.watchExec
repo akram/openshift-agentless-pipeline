@@ -1,0 +1,20 @@
+pipeline {
+    agent none
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+    }
+    stages {
+        stage('initialisation') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                      openshift.withProject("akram-jenkins-sync-plugin-test") {
+                         openshift.exec(["for i in $(seq 100000); do echo $i; sleep 1; done"], watch=true)
+                     }
+                    }
+                }
+            }
+        }
+    }
+}
+
