@@ -9,7 +9,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                       openshift.withProject("akram-jenkins-sync-plugin-test") {
-                         openshift.exec(["for i in $(seq 100000); do echo $i; sleep 1; done"], watch=true)
+                         openshift.exec(watch: true, "for i in $(seq 100000); do echo $i; sleep 1; done")
                      }
                     }
                 }
