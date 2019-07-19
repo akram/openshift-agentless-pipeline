@@ -1,0 +1,27 @@
+pipeline {
+    agent none
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+    }
+    stages {
+        stage('initialisation') {
+          steps {
+            script {
+              openshift.withCluster() {
+                openshift.withProject() {
+                  def appSelector = openshift.selector('deployments')
+                  appSelector.describe()
+                  def app = appSelector.object()
+                  //app.spec.template.spec.containers[1].image = "${IMAGE_NAME}"+':'+"${IMAGE_TAG}"
+                  //openshift.apply(app)
+                  //timeout(5) {
+                  //  appSelector.rollout().status()
+                  //}
+                }
+              }
+            }
+          }
+        }
+    }
+}
+
