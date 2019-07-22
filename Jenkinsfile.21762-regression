@@ -1,12 +1,12 @@
 pipeline {
-    agent none
+    //agent none
+    agent { node { label 'nodejs' } }
     options {
         timeout(time: 20, unit: 'MINUTES')
     }
     stages {
         stage('initialisation') {
-          steps {
-            agent('nodejs') { 
+          steps { 
               script {
                   openshift.withCluster() {
                     openshift.withProject() {
@@ -21,7 +21,6 @@ pipeline {
                         }
                       }
                   }
-            }
           }
         }
     }
