@@ -10,10 +10,10 @@ pipeline {
                     openshift.withCluster() {
                       openshift.withProject("akram-jenkins-sync-plugin-test") {
                          echo "Starting exec withOUT watch, results will be displayed only when finished"
-                         openshift.exec( "jenkins-3-kxt6s", "--" , "sh",  "-c",  "/tmp/a.sh" )
+                         openshift.exec( "jenkins-3-sgxf6", "--" , "sh",  "-c",  "/tmp/a.sh" )
                          echo "End of exec withOUT watch"
                          echo "Starting exec with watch, results will be displayed live"
-                         openshift.execWatch( true, "jenkins-3-kxt6s", "--" , "sh",  "-c",  "/tmp/a.sh" )
+                         openshift.execWatch( true, "jenkins-3-sgxf6", "--" , "sh",  "-c",  "/tmp/a.sh" )
                          echo "End of exec with watch"
                      }
                     }
