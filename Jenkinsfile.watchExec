@@ -13,7 +13,7 @@ pipeline {
                          openshift.execWatch( true, "grafana-1-6dc89", "--" , "sh",  "-c",  "/tmp/a.sh" )
                          echo "End of exec with watch"
                          echo "Starting exec withOUT watch, results will be displayed only when finished"
-                         openshift.exec( true, "grafana-1-6dc89", "--" , "sh",  "-c",  "/tmp/a.sh" )
+                         openshift.exec( "grafana-1-6dc89", "--" , "sh",  "-c",  "/tmp/a.sh" )
                          echo "End of exec withOUT watch"
                      }
                     }
