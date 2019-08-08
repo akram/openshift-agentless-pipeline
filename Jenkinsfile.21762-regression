@@ -16,11 +16,11 @@ pipeline {
                         }
                     }
                     echo "NOT Running withProject in withCluster"
-                    openshift.withProject() {
+                   /* openshift.withProject() {
                         def appSelector2 = openshift.selector('deploymentconfig', 'jenkins')
                             appSelector2.describe()
                             def app2 = appSelector2.object()
-                    }
+                    }*/
                 }
             }
         }
