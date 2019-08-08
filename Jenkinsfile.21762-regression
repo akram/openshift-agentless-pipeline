@@ -21,6 +21,11 @@ pipeline {
                         }
                       }
                   }
+            openshift.withProject() {
+                          def appSelector = openshift.selector('deploymentconfig', 'jenkins')
+                          appSelector.describe()
+                          def app = appSelector.object()
+            }
           }
         }
     }
